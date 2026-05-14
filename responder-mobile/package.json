@@ -1,0 +1,47 @@
+{
+  "name": "responder-mobile",
+  "version": "1.0.0",
+  "main": "index.ts",
+  "scripts": {
+    "start": "cross-env NODE_OPTIONS=--max-old-space-size=8192 node ./node_modules/expo/bin/cli start --max-workers 1",
+    "android": "cross-env NODE_OPTIONS=--max-old-space-size=8192 node ./node_modules/expo/bin/cli start --android --max-workers 1",
+    "ios": "cross-env NODE_OPTIONS=--max-old-space-size=8192 node ./node_modules/expo/bin/cli start --ios --max-workers 1",
+    "web": "cross-env NODE_OPTIONS=--max-old-space-size=8192 node ./node_modules/expo/bin/cli start --web --max-workers 1",
+    "build": "expo export --platform web",
+    "build:android": "expo export --platform android",
+    "build:ios": "expo export --platform ios"
+  },
+  "dependencies": {
+    "@react-native-async-storage/async-storage": "2.2.0",
+    "@react-navigation/bottom-tabs": "^6.5.20",
+    "@react-navigation/native": "^6.1.9",
+    "@react-navigation/native-stack": "^6.9.17",
+    "expo": "~54.0.0",
+    "expo-av": "~16.0.8",
+    "expo-camera": "~17.0.10",
+    "expo-document-picker": "~14.0.8",
+    "expo-image-picker": "^55.0.19",
+    "expo-location": "~19.0.8",
+    "expo-speech": "^55.0.13",
+    "expo-status-bar": "~3.0.9",
+    "react": "19.1.0",
+    "react-dom": "19.1.0",
+    "react-native": "0.81.5",
+    "react-native-safe-area-context": "~5.6.0",
+    "react-native-screens": "~4.16.0",
+    "react-native-web": "~0.21.0",
+    "react-native-webrtc": "^124.0.7",
+    "react-native-webview": "13.15.0",
+    "socket.io-client": "^4.8.1"
+  },
+  "devDependencies": {
+    "@expo/ngrok": "^4.1.3",
+    "@types/react": "~19.1.0",
+    "cross-env": "^10.1.0",
+    "typescript": "~5.9.2"
+  },
+  "overrides": {
+    "graphql": "15.8.0"
+  },
+  "private": true
+}

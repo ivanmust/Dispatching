@@ -1,0 +1,34 @@
+services:
+  - type: web
+    name: dispatch-master-backend
+    env: node
+    rootDir: backend
+    plan: free
+    buildCommand: npm install && npm run build
+    startCommand: npm run migrate && npm start
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 3003
+      - key: JWT_SECRET
+        sync: false
+      - key: DATABASE_URL
+        sync: false
+      - key: ALLOWED_ORIGINS
+        sync: false
+      - key: ADMIN_PORTAL_USERNAME
+        sync: false
+      - key: ADMIN_PORTAL_PASSWORD
+        sync: false
+      - key: ADMIN_PORTAL_JWT_SECRET
+        sync: false
+      - key: NAV_ARCGIS_CLOSEST_FACILITY_URL
+        sync: false
+      - key: NAV_ARCGIS_PORTAL_URL
+        sync: false
+      - key: NAV_ARCGIS_USERNAME
+        sync: false
+      - key: NAV_ARCGIS_PASSWORD
+        sync: false

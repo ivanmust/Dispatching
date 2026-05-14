@@ -1,0 +1,110 @@
+@import "https://js.arcgis.com/4.34/@arcgis/core/assets/esri/themes/dark/main.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+All colors MUST be HSL.
+*/
+
+@layer base {
+  :root {
+    /* GINA-inspired light dashboard palette */
+    --background: 210 40% 97%;
+    --foreground: 222 35% 20%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222 35% 18%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 35% 18%;
+
+    /* Deep navy primary for top bar and accents */
+    --primary: 215 85% 30%;
+    --primary-foreground: 210 40% 98%;
+
+    --secondary: 210 24% 92%;
+    --secondary-foreground: 222 35% 25%;
+
+    --muted: 210 20% 94%;
+    --muted-foreground: 215 15% 50%;
+
+    --accent: 200 80% 54%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 210 18% 88%;
+    --input: 210 18% 88%;
+    --ring: 215 85% 40%;
+
+    --radius: 0.5rem;
+
+    --status-online: 142 72% 35%;
+    --status-offline: 0 75% 55%;
+
+    --sidebar-background: 210 30% 15%;
+    --sidebar-foreground: 210 40% 96%;
+    --sidebar-primary: 215 90% 36%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 210 24% 25%;
+    --sidebar-accent-foreground: 210 40% 96%;
+    --sidebar-border: 210 18% 30%;
+    --sidebar-ring: 215 90% 40%;
+  }
+
+  .dark {
+    /* Dark mode version of GINA-inspired palette */
+    --background: 215 25% 10%;
+    --foreground: 210 20% 92%;
+    --card: 215 22% 13%;
+    --card-foreground: 210 20% 92%;
+    --popover: 215 22% 13%;
+    --popover-foreground: 210 20% 92%;
+    --primary: 215 85% 30%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 220 16% 20%;
+    --secondary-foreground: 210 20% 85%;
+    --muted: 220 14% 18%;
+    --muted-foreground: 215 12% 55%;
+    --accent: 200 80% 54%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 220 14% 22%;
+    --input: 220 14% 22%;
+    --ring: 215 85% 40%;
+    --sidebar-background: 215 28% 12%;
+    --sidebar-foreground: 210 20% 90%;
+    --sidebar-primary: 215 90% 36%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 215 22% 20%;
+    --sidebar-accent-foreground: 210 20% 92%;
+    --sidebar-border: 215 18% 26%;
+    --sidebar-ring: 215 90% 40%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html, body, #root {
+    height: 100%;
+  }
+
+  body {
+    margin: 0;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* Esri widget overrides */
+.esri-ui .esri-popup { z-index: 40; }
+.esri-view { outline: none; }

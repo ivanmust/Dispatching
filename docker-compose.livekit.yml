@@ -1,0 +1,38 @@
+version: "3.9"
+
+services:
+  redis:
+    image: redis:7-alpine
+    command: ["redis-server", "--save", "", "--appendonly", "no"]
+    ports:
+      - "6379:6379"
+
+  livekit:
+    image: livekit/livekit-server:v1.8.4
+    command: ["--config", "/etc/livekit.yaml"]
+    ports:
+      - "7880:7880" # HTTP / WebSocket
+      - "7881:7881" # TCP
+      - "7882:7882/udp" # RTC UDP
+    volumes:
+      - ./livekit.yaml:/etc/livekit.yaml:ro
+    depends_on:
+      - redis
+
+  egress:
+    image: livekit/egress:v1.8.4
+    # Egress writes files to its own filesystem. We mount the same volume
+    # used by the backend at /app/uploads so the backend can serve them.
+    user: "0:0"
+    environment:
+      LIVEKIT_URL: ws://livekit:7880
+      LIVEKIT_API_KEY: ${LIVEKIT_API_KEY:-devkey}
+      LIVEKIT_API_SECRET: ${LIVEKIT_API_SECRET:-devsecret}
+      EGRESS_CONFIG_FILE: /etc/egress.yaml
+    volumes:
+      - ./backend/uploads:/app/uploads
+      - ./egress.yaml:/etc/egress.yaml:ro
+    depends_on:
+      - livekit
+
+volumes: {}

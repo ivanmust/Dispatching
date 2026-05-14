@@ -1,0 +1,41 @@
+services:
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_DB: cad
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - cad-db-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d cad"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    env_file:
+      - .env.example
+    environment:
+      # Override DB host to docker service name
+      DATABASE_URL: postgres://postgres:postgres@db:5432/cad
+      NODE_ENV: production
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "3001:3001"
+    volumes:
+      - cad-uploads:/app/uploads
+
+  # Frontend apps are assumed to be built separately and served by your
+  # preferred frontend hosting (e.g., static file hosting or nginx).
+  # You can also add Dockerfiles for each and expose them here if desired.
+
+volumes:
+  cad-db-data:
+  cad-uploads:
+
