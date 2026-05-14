@@ -4,8 +4,8 @@ services:
     env: node
     rootDir: backend
     plan: free
-    buildCommand: npm install && npm run build
-    startCommand: npm run migrate && npm start
+    buildCommand: npm ci --include=dev && npm run build
+    startCommand: npm run migrate:prod && npm start
     healthCheckPath: /health
     envVars:
       - key: NODE_ENV

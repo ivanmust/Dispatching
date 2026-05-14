@@ -12,6 +12,7 @@
     "backfill:responder-units": "npx ts-node --transpile-only scripts/backfill-responder-units.ts",
     "dev": "tsx watch src/index.ts",
     "migrate": "ts-node --transpile-only src/migrate.ts",
+    "migrate:prod": "node dist/migrate.js",
     "migrate:operator-supervisor": "ts-node --transpile-only scripts/migrate-operator-supervisor.ts",
     "check-schema": "ts-node --transpile-only scripts/check-schema.ts",
     "arcgis:import-admin": "ts-node --transpile-only scripts/import-rwanda-admin-boundaries.ts",
