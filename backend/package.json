@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "main": "dist/index.js",
+  "engines": {
+    "node": "22.x"
+  },
   "scripts": {
     "reset-db": "npx ts-node --transpile-only scripts/reset-db.ts",
     "backfill:incident-timeline": "npx ts-node --transpile-only scripts/backfill-incident-timeline.ts",
