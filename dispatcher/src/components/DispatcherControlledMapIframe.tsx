@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { buildControlledMapHtml, type ControlledMapLayerEnv } from '../../../responder-mobile/src/map/controlledMapHtml';
+import { buildControlledMapHtml, type ControlledMapLayerEnv } from '@/map/controlledMapHtml';
 import type { Incident } from '@/types/incident';
 import {
   incidentCategoryDisplayLabel,
