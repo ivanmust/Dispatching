@@ -16,6 +16,30 @@ function buildConnectionStringFromParts(): string | null {
   return `postgres://${encodeURIComponent(user)}:${encodeURIComponent(password)}@${host}:${port}/${database}`;
 }
 
+function isLocalDatabaseHost(host: string): boolean {
+  return host === "localhost" || host === "127.0.0.1" || host === "::1";
+}
+
+function resolvePostgresSsl(connection: string): false | { rejectUnauthorized: boolean } {
+  const explicitMode = String(process.env.PGSSLMODE ?? "").trim().toLowerCase();
+  if (explicitMode === "disable") return false;
+  if (explicitMode === "require" || explicitMode === "no-verify") return { rejectUnauthorized: false };
+  if (explicitMode === "verify-full" || explicitMode === "verify-ca") return { rejectUnauthorized: true };
+
+  try {
+    const url = new URL(connection);
+    const sslMode = String(url.searchParams.get("sslmode") ?? "").trim().toLowerCase();
+    if (sslMode === "disable") return false;
+    if (sslMode === "require" || sslMode === "no-verify") return { rejectUnauthorized: false };
+    if (sslMode === "verify-full" || sslMode === "verify-ca") return { rejectUnauthorized: true };
+    if (!isLocalDatabaseHost(url.hostname)) return { rejectUnauthorized: false };
+  } catch {
+    // Fall through to the environment-based default.
+  }
+
+  return process.env.NODE_ENV === "production" ? { rejectUnauthorized: false } : false;
+}
+
 const connectionString =
   process.env.DATABASE_URL ??
   process.env.POSTGRES_URL ??
@@ -30,6 +54,7 @@ if (!connectionString) {
 
 export const pool = new Pool({
   connectionString,
+  ssl: resolvePostgresSsl(connectionString),
   // Helps prevent unexpected disconnects on some networks/hosts.
   keepAlive: true,
   // Avoid hanging forever when DB is down, but allow enough time for LAN/dev DB.
